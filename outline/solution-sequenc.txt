@@ -1,0 +1,22 @@
+We talked at the end about the sequence in which the project can be solved. Clearly, there are a ton of ways in which one can attack the problem, but inspired by the sequence in which we cover things, this is the way I would pick.
+
+ANTLR - build lexer and parser and test that it works as expected with random cypher queries
+Neo4j config - Configure graph database and run Cypher shell and use it to write some queries
+Client (part 1) that accepts a query, runs it through lexer and parser and prints it on the screen (or similar)
+-----
+
+Visualization in Smalltalk by reading a json file from a file system and visualizing
+Server (part 1) in Go that runs a few preselected queries to Neo4j (configured earlier)
+Client (part 2) language dependent send a request with the query
+Server (part 2) in Go that accepts the query and run with Neo4j
+-------
+
+Server (part 3) accept the response and send it to client as the response
+Client (part 3) accept the response from the server and save into json file
+Visualization in OCaml by reading from a json file
+Caching the response in a database for each response
+Let us know if you have any questions.  We will always dedicate some time to discuss projects, but feel free to post questions to canvas or stop by for office hours.
+
+You can see above also the way I would split the project in 3 parts.  You should plan to have each of the parts by the following dates (part 1 for Oct 8, part 2 for Nov 4, part 3 for Dec 3); there are not hard deadlines to have everything needed for that part in places, but most of the things will be expected/required to ensure that everyone stays on track.
+
+Have fun.
