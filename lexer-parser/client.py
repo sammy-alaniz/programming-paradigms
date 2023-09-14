@@ -12,7 +12,8 @@ class DetectError(ErrorListener):
         print('Column: ', column)
         print('Message: ', msg)
         print('E:', e)
-        return super().syntaxError(recognizer, offendingSymbol, line, column, msg, e)
+        raise ValueError("Parser caught error!")
+        #return super().syntaxError(recognizer, offendingSymbol, line, column, msg, e) # do I really need this line?
     
 def parse_cypher(input):
     lexer = CypherLexer(input)
@@ -26,5 +27,9 @@ def parse_cypher(input):
 if __name__ == "__main__":
     print('Start of the client!')
     input = FileStream('/home/texas/dev/programming-paradigms/lexer-parser/test.txt')
-    parse_cypher(input)
+    try:
+        parse_cypher(input)
+    except Exception as e:
+        print('dang')
+        print(e)
     
