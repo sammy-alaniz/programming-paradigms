@@ -4,12 +4,6 @@ from antlr4.error.ErrorListener import ErrorListener
 from generated.CypherLexer import CypherLexer
 from generated.CypherParser import CypherParser
 
-input = FileStream('/home/texas/dev/programming-paradigms/lexer-parser/test.txt')
-lexer = CypherLexer(input)
-tokens = CommonTokenStream(lexer)
-parser = CypherParser(tokens)
-
-
 
 class DetectError(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
@@ -19,11 +13,18 @@ class DetectError(ErrorListener):
         print('Message: ', msg)
         print('E:', e)
         return super().syntaxError(recognizer, offendingSymbol, line, column, msg, e)
+    
+def parse_cypher(input):
+    lexer = CypherLexer(input)
+    tokens = CommonTokenStream(lexer)
+    parser = CypherParser(tokens)
+    detect_error = DetectError()
+    parser.removeErrorListeners()
+    parser.addErrorListener(detect_error)
+    tree = parser.oC_Cypher()
 
-detect_error = DetectError()
-parser.removeErrorListeners()
-parser.addErrorListener(detect_error)
-
-
-tree = parser.oC_Cypher()
-
+if __name__ == "__main__":
+    print('Start of the client!')
+    input = FileStream('/home/texas/dev/programming-paradigms/lexer-parser/test.txt')
+    parse_cypher(input)
+    
