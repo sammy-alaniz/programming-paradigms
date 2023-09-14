@@ -1,4 +1,4 @@
-from antlr4 import FileStream, CommonTokenStream
+from antlr4 import InputStream, CommonTokenStream
 from antlr4.error.ErrorListener import ErrorListener
 
 from generated.CypherLexer import CypherLexer
@@ -24,9 +24,10 @@ def parse_cypher(input):
     parser.addErrorListener(detect_error)
     tree = parser.oC_Cypher()
 
+
 if __name__ == "__main__":
     print('Start of the client!')
-    input = FileStream('/home/texas/dev/programming-paradigms/lexer-parser/test.txt')
+    input = InputStream("MATCH (a:bike) RETURN a")
     try:
         parse_cypher(input)
     except Exception as e:
