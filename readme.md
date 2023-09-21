@@ -13,18 +13,19 @@ hash(eid) = hash(sya369) = 495
 
 4] Client to Server send the Cypger if valid. Client to Server should be JSON. Code generating request can be in any language.
    - Every resposnse should be cached
-   - Question: What should the local database be?
+   - Question: What should the local database be? ANSWER: sqlite
    - Don't forget that we may need to invalidate cache.
    - ! feel free to be more coarse grained !
    - ! invalidate everything if there is any modification to the database !
    - Question: does this invalidation require statusing before any query to support more than one client?
-
-5] Server recieves the JSON request, store the response in a local relational database. 
-   - Question: Store the request or the response in a relational database?
-   - Question: What language should the server be in?
    - N = 2
    - Group = 1
    - Server = sqlite
+
+5] Server recieves the JSON request, sends query to relational database 
+   - Question: Store the request or the response in a relational database?
+   - Question: What language should the server be in?
+
 
 6] Visualize the response in Smalltalk GUI
    - GUI with nodes and edges
