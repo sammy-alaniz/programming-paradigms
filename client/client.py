@@ -1,8 +1,11 @@
+#!/usr/bin/python3
+
+
 from antlr4 import InputStream, CommonTokenStream
 from antlr4.error.ErrorListener import ErrorListener
 
-from generated.CypherLexer import CypherLexer
-from generated.CypherParser import CypherParser
+from LexerParser.generated.CypherLexer import CypherLexer
+from LexerParser.generated.CypherParser import CypherParser
 
 from HttpRest import HttpRest
 
