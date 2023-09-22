@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
-    "log"
-    "net/http"
-    "github.com/gorilla/mux"
-)
+	"fmt"
+	"log"
+	"net/http"
 
+	"github.com/gorilla/mux"
+)
 
 func start() string {
 
@@ -15,31 +15,43 @@ func start() string {
 		fmt.Fprintf(w, "Hello, World!")
 	})
 	http.ListenAndServe(":8080", nil)
-    return "yup"
+	return "yup"
 }
 
-func start_two() {
+func start_http_request_handlers() {
 	router := mux.NewRouter()
-    router.HandleFunc("/data", processData).Methods("POST")
-    router.HandleFunc("/datatwo", printHello).Methods("GET")
-    log.Fatal(http.ListenAndServe(":8080", router))
+	router.HandleFunc("/data", processData).Methods("POST")
+	router.HandleFunc("/query", processQuery).Methods("POST")
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func processData(w http.ResponseWriter, r *http.Request) {
-    var data map[string]interface{}
-    if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
-    go handleData(data) // Start a new goroutine to handle the data
-    w.WriteHeader(http.StatusAccepted)
+	var data map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	go handleData(data)
+	w.WriteHeader(http.StatusAccepted)
 }
 
-func printHello(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("dataTwo")
+func processQuery(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("processQuery hit!")
+	var data map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
+		fmt.Println("error occured", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	go handleQuery(data)
+	w.WriteHeader(http.StatusAccepted)
+}
+
+func handleQuery(data map[string]interface{}) {
+	log.Println("Handling data:", data)
+
 }
 
 func handleData(data map[string]interface{}) {
-    // Simulate processing the data (in reality, this would be more complex)
-    log.Println("Processing data:", data)
+	log.Println("Handling data:", data)
 }

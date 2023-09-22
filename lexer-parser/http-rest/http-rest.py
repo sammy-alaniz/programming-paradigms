@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import requests
+import json
 
 
 class http_rest:
@@ -13,13 +14,16 @@ class http_rest:
 
         payload = self.query_to_json(input)
 
+        print(payload)
+
         try:
 
-            response = requests.get(self.url, payload)
+            response = requests.post(self.url, payload)
 
             if response.status_code == 200:
                 print('it worked')
             else:
+                print(str(response.status_code))
                 print('it didnt work')
 
         except Exception as e:
@@ -33,11 +37,11 @@ class http_rest:
             "statement" : str(input)
         }
 
-        return payload
+        return json.dumps(payload)
 
 if __name__ == "__main__":
     print("http-rest !!")
 
-    hr = http_rest("http://localhost:8080/datatwo")
+    hr = http_rest("http://localhost:8080/query")
 
     hr.query("MATCH (a:bike) RETURN a")
