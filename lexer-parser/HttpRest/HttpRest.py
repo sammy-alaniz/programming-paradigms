@@ -4,7 +4,7 @@ import requests
 import json
 
 
-class http_rest:
+class HttpRest:
     def __init__(self, url):
         self.url = url
     
@@ -20,7 +20,7 @@ class http_rest:
 
             response = requests.post(self.url, payload)
 
-            if response.status_code == 200:
+            if response.status_code == 202:
                 print('it worked')
             else:
                 print(str(response.status_code))
@@ -42,6 +42,6 @@ class http_rest:
 if __name__ == "__main__":
     print("http-rest !!")
 
-    hr = http_rest("http://localhost:8080/query")
+    hr = HttpRest("http://localhost:8080/query")
 
     hr.query("MATCH (a:bike) RETURN a")

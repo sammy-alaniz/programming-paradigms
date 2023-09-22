@@ -4,6 +4,7 @@ from antlr4.error.ErrorListener import ErrorListener
 from generated.CypherLexer import CypherLexer
 from generated.CypherParser import CypherParser
 
+from HttpRest import HttpRest
 
 class DetectError(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
@@ -27,10 +28,17 @@ def parse_cypher(input):
 
 if __name__ == "__main__":
     print('Start of the client!')
-    input = InputStream("MATCH (a:bike) RETURN a")
+    query = "MATCH (a:bike) RETURN a"
+    input = InputStream(query)
     try:
         parse_cypher(input)
     except Exception as e:
         print('dang')
         print(e)
+
+    hr = HttpRest.HttpRest("http://localhost:8080/query")
+
+    hr.query(query)
+
+    
     
