@@ -10,14 +10,14 @@ func main() {
 
 	fmt.Println("Start of sever!")
 
-	// var cd ConnectionData
+	var cd ConnectionData
 
-	// cd.uri = "neo4j://localhost:7687"
-	// cd.username = "neo4j"
-	// cd.password = "test2023test"
+	cd.uri = "neo4j://localhost:7687"
+	cd.username = "neo4j"
+	cd.password = "test2023test"
 
-	// cd.init()
-	// cd.shutdown()
+	cd.init()
+	cd.shutdown()
 
 	u := uuid.New()
 	fmt.Println(u)
