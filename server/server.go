@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 func main() {
@@ -16,6 +18,9 @@ func main() {
 
 	// cd.init()
 	// cd.shutdown()
+
+	u := uuid.New()
+	fmt.Println(u)
 
 	start_http_request_handlers()
 }
