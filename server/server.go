@@ -22,5 +22,8 @@ func main() {
 	u := uuid.New()
 	fmt.Println(u)
 
-	start_http_request_handlers()
+	var hr HttpRest
+
+	hr.cd = &cd
+	hr.start_http_request_handlers()
 }
