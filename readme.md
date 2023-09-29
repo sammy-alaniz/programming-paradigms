@@ -83,3 +83,8 @@ hash(eid) = hash(sya369) = 495
 
 
 
+### Other
+- Docker install link: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-rocky-linux-8
+
+Question: v4 o4 v5 database
+Question: how do we test gui code

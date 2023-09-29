@@ -169,7 +169,7 @@ computed.
 Your implementation should work under the following configuration:
 * Linux (any recent distribution)
 * N=2: 0 - Oracle Java 17 (https://www.oracle.com/java/technologies/downloads); 1 - Oracle Java 11
-* N=2: 0 - Neo4j v5.x (cloud Graph Database Self-Managed community edition https://neo4j.com/deployment-center); 1 - Neo4j v4.x
+* N=2: 0 - Neo4j v5.x (cloud Graph Database Self-Managed community edition https://neo4j.com/deployment-center); 1 - Neo4j v4.x (USE4!!)
 * Smalltalk Pharo 11 (https://pharo.org/download)
 * Go 1.18+
 * Python 3.8+

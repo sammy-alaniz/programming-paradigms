@@ -12,7 +12,7 @@ func main() {
 
 	var cd ConnectionData
 
-	cd.uri = "neo4j://localhost:7687"
+	cd.uri = "neo4j://192.168.64.5:7687"
 	cd.username = "neo4j"
 	cd.password = "test2023test"
 

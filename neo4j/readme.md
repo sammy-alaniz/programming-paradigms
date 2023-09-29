@@ -1,17 +1,17 @@
 # Starting Neo4j
 
 ```
-podman pull neo4j
+docker pull neo4j
 ```
 
 
 ```
-podman volume create neo4jdata
+docker volume create neo4jdata
 ```
 
 
 ```
-podman run \
+docker run \
      --name testneo4j \
      -p7474:7474 -p7687:7687 \
      -d \

@@ -33,16 +33,28 @@ func (cd *ConnectionData) init() {
 
 	cd.session = cd.driver.NewSession(neo4j.SessionConfig{})
 
+	if cd.session == nil {
+		fmt.Println("Session failed had an error")
+	}
+
 	fmt.Println("Session established!")
 }
 
 func (cd *ConnectionData) query(query string) (hash string, results map[string]interface{}, err error) {
 
+	fmt.Println("query hit!")
+	fmt.Println("Data", query)
+
 	rs, er := cd.session.Run(query, nil)
 
+	fmt.Println("Query ran!")
+
 	if er != nil {
+		fmt.Print("Query had an error! Error: ", er)
 		return cd.uuid, nil, er
 	}
+
+	fmt.Println("Query did not have an error!")
 
 	results = cd.neo4j_to_http(rs)
 
@@ -51,6 +63,9 @@ func (cd *ConnectionData) query(query string) (hash string, results map[string]i
 
 // this runs but is untested
 func (cd *ConnectionData) neo4j_to_http(data neo4j.Result) (rtn_data map[string]interface{}) {
+
+	fmt.Println("neo4j_to_http hit!!")
+	fmt.Println("Data: ", data)
 
 	rtn_data = make(map[string]interface{})
 
