@@ -25,17 +25,23 @@ func (cd *ConnectionData) init() {
 
 	cd.driver, cd.err = neo4j.NewDriver(cd.uri, neo4j.BasicAuth(cd.username, cd.password, ""))
 
+	//defer cd.driver.Close()
+
 	if cd.err != nil {
 		panic(cd.err)
 	}
 
 	fmt.Println("Driver established!")
 
-	cd.session = cd.driver.NewSession(neo4j.SessionConfig{})
+	cd.session = cd.driver.NewSession(neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+
+	//defer cd.session.Close()
 
 	if cd.session == nil {
 		fmt.Println("Session failed had an error")
 	}
+
+	//cd.query("MATCH (a) RETURN a")
 
 	fmt.Println("Session established!")
 }
