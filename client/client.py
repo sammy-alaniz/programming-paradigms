@@ -31,7 +31,7 @@ def parse_cypher(input):
 
 if __name__ == "__main__":
     print('Start of the client!')
-    query = "MATCH (a:bike) RETURN a"
+    query = "MATCH (a) RETURN a"
     input = InputStream(query)
     try:
         parse_cypher(input)

@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/google/uuid"
 )
 
 func main() {
@@ -17,9 +15,6 @@ func main() {
 	cd.password = "test2023test"
 
 	cd.init()
-
-	u := uuid.New()
-	fmt.Println(u)
 
 	var hr HttpRest
 

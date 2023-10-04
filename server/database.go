@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/google/uuid"
 	"github.com/neo4j/neo4j-go-driver/v4/neo4j"
@@ -18,49 +18,38 @@ type ConnectionData struct {
 }
 
 func (cd *ConnectionData) init() {
-	fmt.Println("initalizing connection data")
+	log.Println("database.initalizing connection data")
 
 	cd.uuid = uuid.New().String()
-	fmt.Println(cd.uuid)
+	log.Println(cd.uuid)
 
 	cd.driver, cd.err = neo4j.NewDriver(cd.uri, neo4j.BasicAuth(cd.username, cd.password, ""))
-
-	//defer cd.driver.Close()
 
 	if cd.err != nil {
 		panic(cd.err)
 	}
 
-	fmt.Println("Driver established!")
+	log.Println("database.Driver established!")
 
 	cd.session = cd.driver.NewSession(neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
 
-	//defer cd.session.Close()
-
 	if cd.session == nil {
-		fmt.Println("Session failed had an error")
+		log.Println("database.Session failed had an error")
 	}
 
-	//cd.query("MATCH (a) RETURN a")
-
-	fmt.Println("Session established!")
+	log.Println("database.Session established!")
 }
 
 func (cd *ConnectionData) query(query string) (hash string, results map[string]interface{}, err error) {
 
-	fmt.Println("query hit!")
-	fmt.Println("Data", query)
+	log.Println("database.query hit!")
 
 	rs, er := cd.session.Run(query, nil)
 
-	fmt.Println("Query ran!")
-
 	if er != nil {
-		fmt.Print("Query had an error! Error: ", er)
+		log.Print("Query had an error! Error: ", er)
 		return cd.uuid, nil, er
 	}
-
-	fmt.Println("Query did not have an error!")
 
 	results = cd.neo4j_to_http(rs)
 
@@ -70,16 +59,17 @@ func (cd *ConnectionData) query(query string) (hash string, results map[string]i
 // this runs but is untested
 func (cd *ConnectionData) neo4j_to_http(data neo4j.Result) (rtn_data map[string]interface{}) {
 
-	fmt.Println("neo4j_to_http hit!!")
-	fmt.Println("Data: ", data)
+	log.Println("database.neo4j_to_http hit!!")
 
 	rtn_data = make(map[string]interface{})
 
 	for data.Next() {
 		record := data.Record()
+		log.Println("record loop")
 
 		for _, key := range record.Keys {
 			value, valid := record.Get(key)
+			log.Println(("key loop"))
 
 			if !valid {
 				// maybe do more error handling?
@@ -88,7 +78,7 @@ func (cd *ConnectionData) neo4j_to_http(data neo4j.Result) (rtn_data map[string]
 
 			rtn_data[key] = value
 
-			fmt.Printf("Key: %s, Value: %v\n", key, value)
+			log.Printf("Key: %s, Value: %v\n", key, value)
 		}
 
 	}
@@ -98,7 +88,7 @@ func (cd *ConnectionData) neo4j_to_http(data neo4j.Result) (rtn_data map[string]
 
 func (cd *ConnectionData) shutdown() {
 	if cd.driver == nil {
-		fmt.Println("Driver is nil")
+		log.Println("Driver is nil")
 	} else {
 		cd.driver.Close()
 	}

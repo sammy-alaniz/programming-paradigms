@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -20,18 +19,24 @@ func (hr *HttpRest) start_http_request_handlers() {
 }
 
 func (hr *HttpRest) processQuery(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("processQuery hit!")
+	log.Println("http-rest.processQuery hit!")
 	var data map[string]interface{}
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
-		fmt.Println("error occured", err)
+		log.Println("error occured", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	go hr.handleQuery(data)
+	//hr.handleQuery(data)
+	uuid, results, er := hr.cd.query(data["statement"].(string))
+	log.Println("UUID : ", uuid)
+	log.Println("RESULTS : ", results)
+	log.Println("ERROR : ", er)
+
 	w.WriteHeader(http.StatusAccepted)
 }
 
 func (hr *HttpRest) handleQuery(data map[string]interface{}) {
-	log.Println("Handling data:", data)
+	log.Println("http-rest.handleQuery hit!")
+	log.Println("http-rest.Handling data:", data)
 	hr.cd.query(data["statement"].(string))
 }
