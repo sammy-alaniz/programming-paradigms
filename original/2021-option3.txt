@@ -1,0 +1,84 @@
+
+1. Write regular expressions for the following cases:
+
+a) keyword `abstract`.
+
+b) identifier that has to start with `_` followed by any number of
+digits and lower case letters.
+
+c) identifier that either (a) starts and ends with `_` and has any
+number of letters in between, or (b) contains only letters followed by
+digits only.
+
+
+--------------------
+
+2. We have a struct in C that describes a `Shape`:
+
+typedef struct _shape {
+    /* todo (as many members as you wish) */
+} Shape;
+
+As a user, I want to be able to use it like this:
+
+Shape *a = createCircle(55/*radius*/);
+Shape *b = createSquare(10/*side*/);
+a->circumference(a);
+b->circumference(b)
+
+Show what would be behind `createCircle` and `createSquare` and update
+the definition of the struct accordingly.
+
+
+--------------------
+
+3. Write an OCaml function that takes as input a list and returns a
+list such that each element is computed as an exponent (index+1) of
+the original value.  (You should not use any library function in to
+solve this problem.)
+
+input: [ 1; 2; 6 ]
+output: [1; 4; 216] (* which is: [ 1^1; 2^2; 6^3 ] *)
+
+
+--------------------
+
+4. Design a declarative language to manipulate txt files.
+
+A user can perform at least the following operations on a given file
+(keep in mind that the file is your input):
+
+  * get number of characters between C1 and C2
+  * get number of lines
+  * count number of a given character C (e.g., how many 'a' are in a document)
+
+One function that is available to you is `count(c)` which counts the
+number of `c` characters in the file.  (You cannot define any other
+function, but your language can have an arbitrary number of operators
+and other constructs.)
+
+hint: be inspired by SQL and Cypher.
+
+(a) Write a CFG for your language.
+
+(b) Give at least one example for each of the required tasks using
+your language.
+
+(c)* Design classes (a sketch only needed) in Smalltalk-like syntax for
+classes of your AST.
+
+(d)* Using AST traversal show a sketch in a Smalltalk-like language to
+implement "count number of a given character C"
+
+
+--------------------
+
+5.* Write a CSP program to simulate a FIFO (first-in-first-out) queue.
+A queue can have no more than N integer elements.  A user can `add` a
+value in the queue and `remove` a value from the queue.  You can
+decide how to deal with an empty queue (when removing) and full queue
+(when adding).  Please, document your decision.
+
+hint: queue has to be a process in CSP.
+
+hint: this is similar to the factorial example from the class.
