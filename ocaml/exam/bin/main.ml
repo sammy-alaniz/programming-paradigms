@@ -1,6 +1,7 @@
 let () = print_endline "Hello, World!"
 
-let exp_list lst =
+let exp_list lst = 
+  (* line below defines a new function that can be recursivley called "rec", function is named "aux", and expects a list, variable name "lst", and an int of the index, variable name "index" *)
   let rec aux lst index =
     match lst with
     | [] -> []
