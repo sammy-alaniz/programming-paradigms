@@ -21,7 +21,7 @@ QUEUE(N: integer):: [
     [
         (size < N); user?add(value) → [queue[size+1] := value; size := size + 1]
         []
-        (size = N; user?add(value) → skip;
+        (size = N); user?add(value) → skip;
         []
         (size > 0); user?remove → 
             [user!queue[1]; 
