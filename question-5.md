@@ -19,15 +19,18 @@ QUEUE(N: integer):: [
     size := 0;
 
     [
-        (size < N) user?add(value) → 
-            [queue[size+1] := value; size := size + 1]
+        (size < N); user?add(value) → [queue[size+1] := value; size := size + 1]
         []
-        (size > 0) user?remove → 
+        (size = N; user?add(value) → skip;
+        []
+        (size > 0); user?remove → 
             [user!queue[1]; 
             -- Shift all elements to the left
             for i := 1 to size-1 do
                 queue[i] := queue[i+1];
             size := size - 1]
+        []
+        (size = N); user?remove → skip;
     ]
 ]
 ||
