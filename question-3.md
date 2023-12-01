@@ -13,16 +13,20 @@ output: [1; 4; 216] (* which is: [ 1^1; 2^2; 6^3 ] *)
 - For each element `x` in the input list, it computes `x` raised to the power of `i` and then recursively calls itself with the rest of the list and an incremented index.
 - The `float_of_int` function is used to convert the integer index to a float because exponentiation in OCaml requires the exponent to be a float.
 ```
-let rec exponentiate_list lst =
-    let rec aux i = function
-        | [] -> []
-        | x :: xs -> (x ** float_of_int(i)) :: aux (i + 1) xs
-    in aux 1 lst
-
+let exp_list lst =
+  let rec aux lst index =
+    match lst with
+    | [] -> []
+    | hd :: tl -> (int_of_float (float_of_int hd ** float_of_int (index + 1))) :: aux tl (index + 1)
+  in
+  aux lst 0
 ```
 - To test this function with the input [1; 2; 6], you would use it as follows:
 ```
-let result = exponentiate_list [1.; 2.; 6.]
+let () =
+  let result = exp_list [1; 2; 6] in
+  List.iter (Printf.printf "%d; ") result;
+  Printf.printf "\n"
 ```
 - This would give you the output [1.; 4.; 216.], which is [1^1; 2^2; 6^3] in OCaml. 
 - Note that the input list elements and the base of the exponent need to be of type float since OCaml's ** operator is defined for floating-point numbers. ​
