@@ -30,7 +30,7 @@ QUEUE(N: integer):: [
                 queue[i] := queue[i+1];
             size := size - 1]
         []
-        (size = N); user?remove → skip;
+        (size = 0); user?remove → skip;
     ]
 ]
 ||
