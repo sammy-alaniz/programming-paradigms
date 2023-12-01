@@ -21,7 +21,7 @@ QUEUE(N: integer):: [
     *ß[
         (size < N); user?add(value) → [queue[size+1] := value; size := size + 1]
         []
-        (size = N); user?add(value) → skip;
+        (size = N); user?add(value) → user!full;
         []
         (size > 0); user?remove → 
             [user!queue[1]; 
@@ -30,7 +30,7 @@ QUEUE(N: integer):: [
                 queue[i] := queue[i+1];
             size := size - 1]
         []
-        (size = 0); user?remove → skip;
+        (size = 0); user?remove → user!empty;
     ]
 ]
 ||
