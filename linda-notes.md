@@ -104,3 +104,53 @@ void init() {
 - Note: use of eval(), so is this in tuplespace?
 
 ## Cigarette Smokers
+Assume a cigarette requires three ingredients to make and smoke: tobacco, paper, and matches. There are three smokers around a table, each of whom has an infinite supply of one of the three ingredients–one smoker has an infinite supply of tobacco, another has paper, and the third has matches. There is also a non-smoking agent who enables the smokers to make their cigarettes by arbitrarily (non-deterministically) selecting two of the supplies to place on the table. The smoker who has the third supply should remove the two items from the table, using them (along with their own supply) to make a cigarette, which they smoke for a while. Once the smoker has finished his cigarette, the agent places two new random items on the table. This process continues forever.
+
+```
+void agent(){
+  int n;
+  while(1) {
+    n = (int)((rand()*3) / RAND_MAX);
+    switch(n) {
+        case 0:
+          out("Paper");
+          out("Tobacco");
+          break;
+        case 1:
+          out("Tobacco");
+          out("Matches");
+          break;
+        case 2: 
+          out("Matches");
+          out("Paper");
+          break;
+    }
+  in("OK"); 
+  }
+}
+```
+
+```
+void smoker_with_matches() {
+  while(1) {
+    in("Watch");
+    if(rdp("Paper") && rdp("Tobacco")) {
+     in("Paper");
+     in("Tobacco");
+     smoke();
+     out("OK");
+    }
+    out("Watch");
+  }
+}
+```
+
+```
+initialize () {
+  eval(agent());
+  eval(smoker_with_matches());
+  eval(smoker_with_paper());
+  eval(smoker_with_tobacco());
+  out("Watch");
+}
+```
