@@ -19,7 +19,7 @@ QUEUE(N: integer):: [
     size := 0;
 
     *[
-        (size < N); user?add(value) → [queue[size+1] := value; size := size + 1; user!added;]
+        (size < N); user?add(value) → [queue[size] := value; size := size + 1; user!added;]
         []
         (size = N); user?add(value) → user!full;
         []
