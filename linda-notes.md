@@ -154,3 +154,50 @@ initialize () {
   out("Watch");
 }
 ```
+
+## Readers - Writers
+Some threads may read and some may write, with the constraint that no thread may access the shared resource for either reading or writing while another thread is in the act of writing to it. (In particular, we want to prevent more than one thread modifying the shared resource simultaneously and allow for two or more readers to access the shared resource at the same time.)
+
+```
+void reader(){
+  int id, num;
+  while(1) {
+    in("id", ?id);
+    out("id", id + 1);
+    in("ok to work", id);
+    in("readers num", ?num);
+    out("readers num", num + 1);
+    out("ok to work", id + 1);
+    reading();
+    in("readers num", ?num);
+    out("readers num", num - 1);
+  } 
+}
+```
+
+```
+void writer() {
+  int id;
+  while(1) {
+    in("id", ?id);
+    out("id", id + 1);
+    in("ok to work", id);
+    rd("readers num", 0);
+    writing();
+    out("ok to work", id + 1);
+  } 
+}
+```
+
+```
+void init () {
+  int i;
+  out("id", 0);
+  out("ok to work", 0);
+  out("readers num", 0);
+  for (i=0; i<10; i++) {
+    eval(reader());
+    eval(writer());
+  }
+}
+```
