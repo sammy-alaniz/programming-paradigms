@@ -62,3 +62,45 @@ wait: in("sem")
 
 initialize semaphores to n by execute out("sem") n times
 ```
+
+## Client - Server
+In one distributed system there are many clients and one server. Number of clients is arbitrary large. Clients are sending requests to servers that servers requests and sends responses. Requests sent earlier have priorities.
+
+```
+void server() {
+  int index = 1;
+  ...
+while (1) {
+    in("request", index, ?req);
+    ...
+    out("response", index, response);
+    index++;
+  } 
+}
+```
+- ```?``` means place the returned value in req
+
+```
+void client() {
+  int index;
+  ...
+  in("server index", ?index);
+  out("server index", index+1);
+  ...
+  out("request", index, request);
+  in("response", index, ?response);
+  ...
+}
+```
+
+```
+void init() {
+  out("server index", 1);
+  eval(server());
+  for (int i=0; i<10; i++)
+    eval(client());
+}
+```
+- Note: use of eval(), so is this in tuplespace?
+
+## Cigarette Smokers
